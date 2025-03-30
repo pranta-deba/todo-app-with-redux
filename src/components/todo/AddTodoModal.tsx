@@ -32,6 +32,7 @@ const AddTodoModal = () => {
 
     const taskDetails = { id: randomId, title: task, description, priority };
     dispatch(addTodo(taskDetails));
+    setPriority("");
   };
 
   return (

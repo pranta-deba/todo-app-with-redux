@@ -1,1 +1,1 @@
-last : 25-3 Todo component's basic structure , {7:26}
+last : 25-9 RTK Query initial setup 🫡🫡 completed
