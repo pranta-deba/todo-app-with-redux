@@ -1,12 +1,14 @@
-import { useAppSelector } from "@/redux/hook";
 import AddTodoModal from "./AddTodoModal";
 import TodoCard from "./TodoCard";
 import TodoFilter from "./TodoFilter";
 import NoTaskCard from "./NoTaskCard";
+import { useGetAllTodosQuery } from "@/redux/api/api";
 
 const TodoContainer = () => {
-  const { todos } = useAppSelector((state) => state.todos);
-console.log(todos)
+  const { data: todos, isLoading } = useGetAllTodosQuery(undefined);
+
+  if (isLoading) return <div>Loading...</div>;
+
   return (
     <div>
       <div className="flex justify-between mb-5">
@@ -16,10 +18,10 @@ console.log(todos)
 
       <div className="w-full h-full primary-bg p-1 rounded-xl">
         <div className="w-full h-full bg-white rounded-xl space-y-2 p-3">
-          {todos.length === 0 ? (
+          {todos?.data && todos?.data?.length === 0 ? (
             <NoTaskCard />
           ) : (
-            todos.map((todo) => <TodoCard key={todo.id} {...todo} />)
+            todos?.data?.map((todo) => <TodoCard key={todo.id} {...todo} />)
           )}
         </div>
       </div>
