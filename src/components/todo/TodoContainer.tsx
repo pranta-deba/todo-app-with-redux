@@ -19,7 +19,7 @@ const TodoContainer = () => {
           {todos.length === 0 ? (
             <NoTaskCard />
           ) : (
-            todos.map((todo) => <TodoCard key={todo.id} todo={todo} />)
+            todos.map((todo) => <TodoCard key={todo.id} id={todo.id} title={todo.title} description={todo.description} />)
           )}
         </div>
       </div>

@@ -1,12 +1,18 @@
 import { Button } from "../ui/button";
 
-const TodoCard = ({ todo }) => {
+type TTodoCardProps = {
+  title: string;
+  description: string;
+  id: string;
+};
+
+const TodoCard = ({ title, description, id }: TTodoCardProps) => {
   return (
     <div className="rounded-md w-full flex justify-between p-4 border-b-2 shadow">
       <input type="checkbox" name="check" id="check" />
-      <p>{todo?.title}</p>
-      <p>{new Date().toLocaleTimeString()}</p>
-      <p>{todo?.description}</p>
+      <p>{title}</p>
+      {/* <p>{id}</p> */}
+      <p>{description}</p>
       <div className="space-x-2">
         <Button className="bg-red-500">
           <svg
