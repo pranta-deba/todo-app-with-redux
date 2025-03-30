@@ -12,15 +12,23 @@ import {
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-import { useAppDispatch } from "@/redux/hook";
-import { addTodo } from "@/redux/features/todoSlice";
+import { useAddTodoMutation } from "@/redux/api/api";
+// import { useAppDispatch } from "@/redux/hook";
+// import { addTodo } from "@/redux/features/todoSlice";
 
 const AddTodoModal = () => {
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
-  const dispatch = useAppDispatch();
 
+  // ! For Local State Management
+  // const dispatch = useAppDispatch();
+  const [addTodo, obj] = useAddTodoMutation();
+  const { data, isError, isSuccess, isLoading } = obj;
+
+  console.log({ data, isError, isSuccess, isLoading });
+
+  // * For Server
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -31,7 +39,12 @@ const AddTodoModal = () => {
     const randomId = Math.random().toString(36).substring(2, 10);
 
     const taskDetails = { id: randomId, title: task, description, priority };
-    dispatch(addTodo(taskDetails));
+
+    // ! For Local State Management
+    // dispatch(addTodo(taskDetails));
+
+    // * For Server
+    addTodo(taskDetails);
     setPriority("");
   };
 

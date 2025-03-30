@@ -5,6 +5,8 @@ import NoTaskCard from "./NoTaskCard";
 import { useGetAllTodosQuery } from "@/redux/api/api";
 
 const TodoContainer = () => {
+
+  //* For Server
   const { data: todos, isLoading } = useGetAllTodosQuery(undefined);
 
   if (isLoading) return <div>Loading...</div>;

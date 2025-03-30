@@ -1,1 +1,1 @@
-last : 25-9 RTK Query initial setup 🫡🫡 completed
+last : 26-2 Setup a Mutation in RTK Query 🫡🫡 completed
