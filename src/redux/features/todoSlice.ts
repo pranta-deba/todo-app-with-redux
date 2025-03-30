@@ -29,7 +29,10 @@ const todoSlice = createSlice({
     toggleComplete: (state, action: PayloadAction<string>) => {
       const todo = state.todos.find((t) => t.id === action.payload);
       if (todo) {
-        todo!.isCompleted = !todo.isCompleted;  // "!." ---> exactly isCompleted is boolean value
+        todo!.isCompleted = !todo.isCompleted; // "!." ---> exactly isCompleted is boolean value
+        state.todos.sort(
+          (a, b) => Number(a.isCompleted) - Number(b.isCompleted)
+        );
       }
     },
   },
