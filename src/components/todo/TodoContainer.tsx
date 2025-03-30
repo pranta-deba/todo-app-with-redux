@@ -6,7 +6,7 @@ import NoTaskCard from "./NoTaskCard";
 
 const TodoContainer = () => {
   const { todos } = useAppSelector((state) => state.todos);
-
+console.log(todos)
   return (
     <div>
       <div className="flex justify-between mb-5">
