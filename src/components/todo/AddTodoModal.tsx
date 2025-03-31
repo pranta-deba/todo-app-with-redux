@@ -23,21 +23,19 @@ const AddTodoModal = () => {
 
   // ! For Local State Management
   // const dispatch = useAppDispatch();
+  // * For Server
   const [addTodo, obj] = useAddTodoMutation();
+
   const { data, isError, isSuccess, isLoading } = obj;
 
   console.log({ data, isError, isSuccess, isLoading });
 
-  // * For Server
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
     if (!priority || !task || !description) {
       return;
     }
-
     // const randomId = Math.random().toString(36).substring(2, 10);
-
     const taskDetails = {
       // id: randomId,
       title: task,
@@ -45,10 +43,8 @@ const AddTodoModal = () => {
       priority,
       isCompleted: false,
     };
-
     // ! For Local State Management
     // dispatch(addTodo(taskDetails));
-
     // * For Server
     addTodo(taskDetails);
     setPriority("");
