@@ -23,12 +23,10 @@ const AddTodoModal = () => {
 
   // ! For Local State Management
   // const dispatch = useAppDispatch();
+  
   // * For Server
   const [addTodo, obj] = useAddTodoMutation();
-
   const { data, isError, isSuccess, isLoading } = obj;
-
-  console.log({ data, isError, isSuccess, isLoading });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch } from "react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -9,13 +9,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useAppDispatch } from "@/redux/hook";
-import { filteredByPriority } from "@/redux/features/todoSlice";
+// import { useAppDispatch } from "@/redux/hook";
+// import { filteredByPriority } from "@/redux/features/todoSlice";
 
-const TodoFilter = () => {
-  const [position, setPosition] = useState("");
-  const dispatch = useAppDispatch();
+type TTodoFilterProps = {
+  priority: string;
+  setPriority: Dispatch<string>;
+};
 
+const TodoFilter = ({ priority, setPriority }: TTodoFilterProps) => {
+  // const dispatch = useAppDispatch();
 
   return (
     <DropdownMenu>
@@ -28,10 +31,10 @@ const TodoFilter = () => {
         <DropdownMenuLabel>Filter by priority</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
-          value={position}
+          value={priority}
           onValueChange={(value) => {
-            setPosition(value);
-            dispatch(filteredByPriority(value));
+            setPriority(value);
+            // dispatch(filteredByPriority(value));
           }}
         >
           <DropdownMenuRadioItem value="high">High</DropdownMenuRadioItem>
