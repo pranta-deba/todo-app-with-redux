@@ -36,9 +36,15 @@ const AddTodoModal = () => {
       return;
     }
 
-    const randomId = Math.random().toString(36).substring(2, 10);
+    // const randomId = Math.random().toString(36).substring(2, 10);
 
-    const taskDetails = { id: randomId, title: task, description, priority };
+    const taskDetails = {
+      // id: randomId,
+      title: task,
+      description,
+      priority,
+      isCompleted: false,
+    };
 
     // ! For Local State Management
     // dispatch(addTodo(taskDetails));
