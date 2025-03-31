@@ -1,12 +1,11 @@
-import { useAppDispatch } from "@/redux/hook";
+// import { useAppDispatch } from "@/redux/hook";
 import { Button } from "../ui/button";
-import { toggleComplete } from "@/redux/features/todoSlice";
-import { useDeleteTodoMutation } from "@/redux/api/api";
+// import { toggleComplete } from "@/redux/features/todoSlice";
+import { useDeleteTodoMutation, useUpdateTodoMutation } from "@/redux/api/api";
 
 type TTodoCardProps = {
   title: string;
   description: string;
-  id: string;
   isCompleted?: boolean;
   priority: string;
   _id: string;
@@ -15,27 +14,37 @@ type TTodoCardProps = {
 const TodoCard = ({
   title,
   description,
-  id,
   isCompleted,
   priority,
   _id,
 }: TTodoCardProps) => {
-  const dispatch = useAppDispatch();
-  const [deleteTodo, obj] = useDeleteTodoMutation();
-  const { data, isError, isSuccess, isLoading } = obj;
+  // const dispatch = useAppDispatch();
+  const [deleteTodo, deleteFetchProcessObj] = useDeleteTodoMutation();
+  const [updateTodo, updateFetchProcessObj] = useUpdateTodoMutation();
 
-  
   const handleDelete = (id: string) => {
     deleteTodo(id);
   };
   const handleCompleteToggle = () => {
-    console.log("checked");
-    dispatch(toggleComplete(id));
+    // console.log("checked");
+    // dispatch(toggleComplete(id));
+
+    const options = {
+      id: _id,
+      data: {
+        title,
+        description,
+        isCompleted: !isCompleted,
+        priority,
+      },
+    };
+    updateTodo(options);
   };
 
   return (
     <div className="rounded-md w-full flex justify-between items-center p-4 border-b-2 shadow">
       <input
+        defaultChecked={isCompleted}
         className="mr-3"
         onChange={handleCompleteToggle}
         type="checkbox"
