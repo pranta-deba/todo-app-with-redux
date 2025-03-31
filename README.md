@@ -3,6 +3,7 @@
 A simple Todo Task Management application built using **React**, **Redux Toolkit Query**, and **Node.js (Express.js & MongoDB)**.
 
 ## Features
+
 - Fetch all todos with optional priority filtering
 - Add a new todo
 - Update an existing todo
@@ -10,13 +11,20 @@ A simple Todo Task Management application built using **React**, **Redux Toolkit
 - Efficient state management using Redux Toolkit Query
 
 ## Tech Stack
+
 ### Frontend:
+
 - React.js
 - Redux Toolkit Query
 - TypeScript
-- Tailwind CSS 
+- Tailwind CSS
 
 ### Backend:
+
 - Node.js
 - Express.js
-- MongoDB 
+- MongoDB
+
+## Backend Repository
+
+[Todo App Backend](https://github.com/pranta-deba/todo-app-with-redux-server)
