@@ -9,58 +9,76 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Textarea } from "../ui/textarea";
-import { useAddTodoMutation } from "@/redux/api/api";
-// import { useAppDispatch } from "@/redux/hook";
-// import { addTodo } from "@/redux/features/todoSlice";
+import { Input } from "../ui/input";
+import { useUpdateTodoMutation } from "@/redux/api/api";
 
-const AddTodoModal = () => {
-  const [task, setTask] = useState("");
-  const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("");
+type TTodoUpdateModalProps = {
+  title: string;
+  description: string;
+  isCompleted?: boolean;
+  priority: string;
+  _id: string;
+};
 
-  // ! For Local State Management
-  // const dispatch = useAppDispatch();
+const UpdateTodoModal = ({
+  title: oldTitle,
+  description: oldDes,
+  priority: oldPrio,
+  _id,
+  isCompleted,
+}: TTodoUpdateModalProps) => {
+  const [task, setTask] = useState(oldTitle || "");
+  const [description, setDescription] = useState(oldDes || "");
+  const [priority, setPriority] = useState(oldPrio || "");
 
-  // * For Server
-  const [addTodo, { isLoading }] = useAddTodoMutation();
+  const [updateTodo, { isLoading: updateLoading }] = useUpdateTodoMutation();
 
-  console.log("add todo loader==>", isLoading);
+  console.log("update todo loader==>", updateLoading);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (!priority || !task || !description) {
       return;
     }
-    // const randomId = Math.random().toString(36).substring(2, 10);
-    const taskDetails = {
-      // id: randomId,
-      title: task,
-      description,
-      priority,
-      isCompleted: false,
-    };
-    // ! For Local State Management
-    // dispatch(addTodo(taskDetails));
-    // * For Server
-    addTodo(taskDetails);
-    setPriority("");
-  };
 
+    const options = {
+      id: _id,
+      data: {
+        title: task,
+        description,
+        priority,
+        isCompleted,
+      },
+    };
+
+    updateTodo(options);
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
         <Button className="primary-bg text-xl font-semibold cursor-pointer text-white">
-          Add todo
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1}
+            stroke="currentColor"
+            className="size-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+            />
+          </svg>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add Task</DialogTitle>
+          <DialogTitle>Update Task</DialogTitle>
           <DialogDescription>
-            Add your tasks that you want to finish.
+            Update your tasks that you want to finish.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
@@ -74,17 +92,19 @@ const AddTodoModal = () => {
                 id="task"
                 placeholder="task"
                 className="col-span-3"
+                defaultValue={oldTitle}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="description" className="text-right">
                 Description
               </Label>
-              <Textarea
+              <textarea
                 onBlur={(e) => setDescription(e.target.value)}
                 id="description"
                 placeholder="description"
                 className="col-span-3"
+                defaultValue={oldDes}
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -145,4 +165,4 @@ const AddTodoModal = () => {
   );
 };
 
-export default AddTodoModal;
+export default UpdateTodoModal;
